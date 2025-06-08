@@ -1,0 +1,112 @@
+:root {
+  --primary-bg: #543A20;
+  --primary-light: #6B4E2A;
+  --accent: #CE9760;
+  --text-light: #FFFFFF;
+  --text-dark: #000000;
+  --highlight: #FFFE25;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: var(--primary-bg);
+  color: var(--text-light);
+}
+
+/* Cart */
+.cart {
+  position: fixed;
+  bottom: 80px;
+  right: 20px;
+  background-color: var(--primary-bg);
+  border-radius: 50%;
+  padding: 12px;
+  box-shadow: 0px 4px 10px rgba(0,0,0,0.4);
+  z-index: 9999;
+}
+.cart svg {
+  color: var(--text-light);
+}
+.cart span {
+  color: var(--highlight);
+  font-weight: bold;
+  font-size: 1.2em;
+}
+
+/* Product Card */
+.MuiCard-root {
+  background-color: var(--primary-light);
+  border: 1px solid var(--accent);
+}
+.MuiCardContent-root {
+  color: var(--text-light);
+}
+.addon-card {
+  border: 1px solid var(--accent);
+  background-color: var(--primary-light);
+  color: var(--text-light);
+}
+.addon-card.selected {
+  background-color: var(--accent);
+  color: var(--text-light);
+}
+
+/* Buttons */
+.MuiButton-containedPrimary {
+  background-color: var(--accent) !important;
+  color: var(--text-light) !important;
+}
+.MuiButton-containedPrimary:hover {
+  background-color: #b87d45 !important;
+}
+
+.MuiButton-outlinedPrimary {
+  border-color: var(--accent);
+  color: var(--primary-bg);
+}
+.MuiButton-outlinedPrimary:hover {
+  background-color: var(--primary-light);
+}
+
+/* Dialog */
+.MuiDialog-paper {
+  background-color: #fff;
+  border-radius: 10px;
+}
+
+.dialog-title h2 {
+  color: var(--primary-bg);
+  font-weight: 600;
+}
+
+/* Slider Images */
+.promo img {
+  border-radius: 10px;
+  box-shadow: 0px 4px 12px rgba(0,0,0,0.3);
+}
+
+/* Quantity Counter */
+#plus_btn,
+#minus_btn {
+  background-color: var(--accent);
+  color: var(--text-light);
+}
+
+/* Footer */
+.orderscreen_foot {
+  background-color: var(--primary-bg);
+  padding: 10px;
+  color: var(--text-light);
+}
+
+/* Floating Action Button */
+.MuiFab-primary {
+  background-color: var(--primary-bg);
+  color: var(--text-light);
+}
+
+/* Category Popper Menu */
+.MuiPaper-root.MuiMenu-paper {
+  background-color: var(--primary-bg);
+  color: var(--text-light);
+}

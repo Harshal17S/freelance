@@ -1,0 +1,77 @@
+.splash-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+  background-color: #ffffff; /* A light, warm background color */
+  color: #333; /* Dark text for better readability */
+  text-align: center;
+  overflow: hidden; /* Prevent scrollbars during animation */
+}
+
+.splash-content {
+  /* Add any additional styling for the content here */
+  animation: fadeIn 1.5s forwards; /* Fade-in animation */
+  opacity: 0; /* Initially hidden */
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Adding styles for the logo */
+.splash-logo {
+  max-width: 300px;
+  width: 80%;
+  height: auto;
+  margin-bottom: 1rem;
+  object-fit: contain;
+}
+
+.splash-text {
+  font-size: 3em;
+  font-weight: bold;
+  margin-bottom: 0.5em;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Add a subtle shadow */
+}
+
+.splash-subtext {
+  font-size: 1.5em;
+}
+
+/* Media queries for responsive design */
+@media (max-width: 768px) {
+  .splash-text {
+    font-size: 2.5em;
+  }
+  .splash-subtext {
+    font-size: 1.2em;
+  }
+  .splash-logo {
+    max-width: 220px;
+  }
+}
+
+@media (max-width: 480px) {
+  .splash-text {
+    font-size: 2em;
+  }
+  .splash-subtext {
+    font-size: 1em;
+  }
+  .splash-logo {
+    max-width: 180px;
+  }
+}
+
+/* Adding fade-out animation for timer */
+.fade-out {
+  animation: fadeOut 1s forwards;
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}

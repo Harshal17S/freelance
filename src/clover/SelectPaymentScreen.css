@@ -1,0 +1,75 @@
+.userInput {
+  width: 100%;
+  padding: 14px;
+  margin-bottom: 12px;
+  background-color: #3a2a1a;
+  color: #fff;
+  border: 1px solid #8B4513;
+  border-radius: 8px;
+  font-size: 15px;
+  font-family: 'Poppins', sans-serif;
+  transition: border 0.2s ease;
+}
+
+.userInput:focus {
+  border-color: #d4a017;
+  outline: none;
+}
+
+.note {
+  background-color: #3a2a1a;
+  border: 1px solid #8B4513;
+  color: #d4a017;
+  border-radius: 8px;
+  padding: 10px 16px;
+  margin-bottom: 15px;
+  font-family: 'Poppins', sans-serif;
+}
+
+.dialogTitle {
+  font-size: 1.6em;
+  font-weight: bold;
+  color: #d4a017;
+  font-family: 'Playfair Display', serif;
+  text-align: center;
+}
+
+.submit-btn {
+  padding: 12px 24px;
+  font-weight: 600;
+  background-color: #d4a017;
+  color: #000;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  cursor: pointer;
+  font-family: 'Poppins', sans-serif;
+  transition: background 0.3s ease;
+}
+
+.submit-btn:hover {
+  background-color: #e6b832;
+}
+
+.cancel-btn {
+  padding: 12px 24px;
+  border: 1px solid #8B4513;
+  border-radius: 8px;
+  background-color: #3a2a1a;
+  color: #d4a017;
+  font-size: 15px;
+  cursor: pointer;
+  font-family: 'Poppins', sans-serif;
+  transition: background 0.3s ease;
+}
+
+.cancel-btn:hover {
+  background-color: #4a3222;
+}
+
+.page-wrapper {
+  height: 100vh;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
