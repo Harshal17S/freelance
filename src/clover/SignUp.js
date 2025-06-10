@@ -1,4 +1,6 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
+
+
 import {
     Box,
     Button,
@@ -22,6 +24,7 @@ import {
 import config, { merchantCode } from '../util';
 import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
 import Logo from '../assets/image/cofee.png';
+
 
 // OTP countdown hook
 const useOtpCountdown = (initialTime = 120) => {
@@ -130,7 +133,9 @@ const SignUp = (props) => {
                 window.NativeInterface.saveToken(response.data.user.token);
             }
             props.setOpenSign(false);
-            props.procedToCheckoutHandler();
+            // props.procedToCheckoutHandler();
+            props.history.push('/order?' + window.location.href.split('?')[1]);
+
             setIsVerifyingOtp(false);
             setOtpSent(false);
             resetCountdown();
@@ -210,7 +215,10 @@ const SignUp = (props) => {
                     window.NativeInterface.saveToken(response.data.user.token);
                 }
                 props.setOpenSign(false);
-                props.procedToCheckoutHandler();
+                // props.procedToCheckoutHandler();
+               props.history.push('/order?' + window.location.href.split('?')[1]);
+
+
                 setIsVerifyingOtp(false);
                 setOtpSent(false);
                 resetCountdown();
@@ -240,21 +248,25 @@ const SignUp = (props) => {
     };
 
     return (
-        <Box
-            className={styles.root}
-            style={{
-                height: "auto",
-                width: '100%',
-                alignItems: 'center',
-                overflow: "auto",
-                overflowX: "hidden",
-                padding: "20px",
-                borderRadius: "12px",
-                backgroundColor: "#1a1a1a", // Dark background from the previous theme
-                color: "#fff", // White text for contrast
-                position: "relative",
-            }}
-        >
+       <Box
+  className={styles.root}
+  style={{
+    position: "fixed",
+    top: 0,
+    left: 0,
+    width: "100vw",
+    height: "100vh",
+    zIndex: 9999, // Ensure it's above all other elements
+    backgroundColor: "#000", // Keep your theme
+    overflowY: "auto",
+    padding: "20px",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+  }}
+>
+
             {/* Coffee Cup Logo */}
             <Box
                 display="flex"
@@ -280,11 +292,12 @@ const SignUp = (props) => {
                         style={{
                             marginBottom: "20px",
                             color: "#fff",
-                            fontWeight: "bold",
-                            fontFamily: "'Playfair Display', serif",
+                            fontWeight: "600",
+                            fontFamily: "Poppins",
+                            font:"Poppins"
                         }}
                     >
-                        Log In
+                        Welcome to Login
                     </Typography>
                     
                     <TextField 
@@ -302,7 +315,7 @@ const SignUp = (props) => {
                             borderRadius: "8px",
                         }}
                         InputLabelProps={{
-                            style: { color: "#fff" },
+                            style: { color: "#828282" },
                             fontWeight:"bold"
                              // Gold label color
                         }}
@@ -336,23 +349,24 @@ const SignUp = (props) => {
                     />
 
                     <Grid container spacing={2} style={{ marginTop: "15px" }}>
-                        <Grid item xs={12}>
+                        <Grid item xs={12}> 
                             <Button 
-                                variant="contained"
-                                disabled={isSendingOTP}
-                                fullWidth
-                                onClick={getOtpHandler}
-                                style={{
-                                    backgroundColor: "#654321", // Gold button
-                                    color: "#fff", // Black text for contrast
-                                    borderRadius: "50px", // Rounded edges to match the new design
-                                    padding: "10px",
-                                    fontWeight: "bold",
-                                    textTransform: "uppercase",
-                                }}
-                            >
-                                Get OTP
-                            </Button>
+  variant="contained"
+  disabled={isSendingOTP}
+  fullWidth
+  onClick={getOtpHandler}
+  style={{
+    backgroundColor: "#CE9760", // ✅ Fixed: single '#'
+    color: "#543A20",
+    borderRadius: "50px",
+    padding: "10px",
+    fontWeight: "bold",
+    textTransform: "uppercase",
+  }}
+>
+  Get OTP
+</Button>
+
                         </Grid>
                     </Grid>
                     
@@ -363,17 +377,18 @@ const SignUp = (props) => {
                         width="100%"
                         my={3}
                     >
-                        <Divider style={{ width: '40%', backgroundColor: "#654321" }} />
+                        <Divider style={{ width: '40%', backgroundColor: "#DD9854" }} />
                         <Typography
                             variant="h6"
                             style={{
                                 margin: "0 10px",
-                                color: "#654321",
+                                color: "#ffff",
+                                fontWeight:"600"
                             }}
                         >
                             OR
                         </Typography>
-                        <Divider style={{ width: '40%', backgroundColor: "#654321" }} />
+                        <Divider style={{ width: '40%', backgroundColor: "#DD9854" }} />
                     </Box>
                     
                     <Box
@@ -410,7 +425,7 @@ const SignUp = (props) => {
                         gutterBottom
                         style={{
                             color: "#fff",
-                            fontWeight: "bold",
+                            fontWeight: "2000",
                         }}
                     >
                         Log In
@@ -418,9 +433,10 @@ const SignUp = (props) => {
                     
                     <Typography
                         variant="body1"
+                        
                         align="center"
                         paragraph
-                        style={{ color: "#fff" }}
+                        style={{ color: "#828282",paddingTop:"2em" }}
                     >
                         We've sent an OTP to "{isEmail ? signInEmail : countryCode + signInEmail}"
                     </Typography>
@@ -441,25 +457,26 @@ const SignUp = (props) => {
                                 fontSize: "0.8em",
                                 backgroundColor: "#2a2a2a",
                                 borderRadius: "8px",
+                                color:"#828282"
                             }}
                             InputLabelProps={{
-                                style: { color: "#fff" },
+                                style: { color: "#828282" },
                             }}
                             InputProps={{
-                                style: { color: "#fff", fontSize:"0.8em" },
+                                style: { color: "#ffff", fontSize:"0.8em" },
                             }}
                         />
                         
                         <Typography
                             variant="body2"
-                            style={{ color: "#654321", padding: '8px 0' }}
+                            style={{ color: "#ffff", padding: '8px 0' }}
                         >
                             {timer === 0 ? (
                                 <Button
                                     onClick={getOtpHandler}
                                     variant="text"
                                     style={{
-                                        color: "#654321",
+                                        color: "#ffff",
                                         textTransform: 'none',
                                     }}
                                 >
@@ -479,13 +496,13 @@ const SignUp = (props) => {
                             style={{
                                 width: "60%",
                                 padding: "10px",
-                                backgroundColor: "#654321",
-                                color: "#fff",
+                                backgroundColor: "#CE9760",
+                                color: "#543A20",
                                 borderRadius: "50px",
                                 fontWeight: "bold",
                             }}
                         >
-                            {isVerifyingOtp ? <CircularProgress size={24} style={{ color: "#000" }} /> : "Verify OTP"}
+                            {isVerifyingOtp ? <CircularProgress size={24} style={{ color: "#543A20" }} /> : "Verify OTP"}
                         </Button>
                     </Box>
                     
@@ -494,7 +511,7 @@ const SignUp = (props) => {
                             onClick={handleChangeEmail}
                             variant="text"
                             style={{
-                                color: "#654321",
+                                color: "#ffff",
                                 textTransform: 'none',
                             }}
                         >

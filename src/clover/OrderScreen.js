@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import config, { getParameterByName, merchantCode } from "../util";
 import { Store } from "../Store";
 // import './OrderScreenTheme.css';
-import './OrderScreenTheme.css';
+// import './OrderScreenTheme.css';
 import Chip from "@mui/material/Chip";
 import axios from "axios";
 import Slider from "react-slick";
@@ -383,14 +383,48 @@ export default function OrderScreen(props) {
           <ReviewScreen setIsPaneOpen={setIsPaneOpen} />
         </div>
       </SlidingPane>
+
+
+      {isOpen && (
+  <Box
+    style={{
+      position: "fixed",
+      top: 0,
+      left: 0,
+      width: "100vw",
+      height: "100vh",
+      backgroundImage: `url('/images/coffee-bg.jpg')`,  // <-- your image
+      backgroundSize: "cover",
+      backgroundPosition: "center",
+      zIndex: 1298, // lower than MUI dialog (default zIndex is 1300)
+    }}
+  />
+)}
       <Dialog
-        onClose={closeHandler}
-        aria-labelledby="max-width-dialog-title"
-        open={isOpen}
-        maxWidth={"50%"}
+         open={isOpen}
+  onClose={closeHandler}
+  fullWidth
+  maxWidth="sm"
+  BackdropProps={{
+    style: {
+      backgroundImage: `url('/images/coffee-bg.jpg')`,
+      backgroundSize: "cover",
+      backgroundPosition: "center",
+    }
+  }}
+        PaperProps={{
+  style: {
+    backgroundColor: "#543A20", // dark mode
+    color: "#FFFFFF",
+    padding: "20px",
+    borderRadius: "24px",
+    fontFamily: "Poppins, sans-serif"
+  }
+}}
+
       >
         <DialogTitle className={styles.center}>
-          <h2 style={{ fontFamily: "'Poppins', sans-serif", color: "#543A20" }}>
+          <h2 style={{ fontFamily: "'Poppins', sans-serif", color: "#ffff",fontWeight:"300"}}>
             Add {product.name}
           </h2>
         </DialogTitle>
@@ -401,6 +435,7 @@ export default function OrderScreen(props) {
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
+                
               }}
             >
               <CardMedia
@@ -416,7 +451,7 @@ export default function OrderScreen(props) {
             <Box style={{ padding: "10px" }}>
               <Typography
                 variant="h5"
-                style={{ fontFamily: "'Poppins', sans-serif", color: "#543A20" }}
+                style={{ fontFamily: "'Poppins', sans-serif", color: "#ffff" }}
               >
                 {product.name}
               </Typography>
@@ -432,7 +467,7 @@ export default function OrderScreen(props) {
                   variant="contained"
                   disabled={quantity === 1}
                   onClick={(e) => quantity > 1 && setQuantity(quantity - 1)}
-                  style={{ marginRight: "10px", backgroundColor: "#CE9760", color: "#FFFFFF" }} // Updated primary color
+                  style={{ marginRight: "10px", backgroundColor: "#CE9760", color: "#000000" }} // Updated primary color
                 >
                   <RemoveIcon />
                 </Button>
@@ -454,7 +489,7 @@ export default function OrderScreen(props) {
                   id="plus_btn"
                   variant="contained"
                   onClick={(e) => setQuantity(quantity + 1)}
-                  style={{ marginLeft: "10px", backgroundColor: "#CE9760", color: "#FFFFFF" }} // Updated primary color
+                  style={{ marginLeft: "10px", backgroundColor: "#CE9760", color: "#000000" }} // Updated primary color
                 >
                   <AddIcon sx={{ fontSize: "1px" }} />
                 </Button>
@@ -464,7 +499,7 @@ export default function OrderScreen(props) {
               {addonsGroup.length
                 ? addonsGroup.map((addGroup) => (
                   <Box key={addGroup.id}>
-                    <h3 style={{ fontFamily: "'Poppins', sans-serif", color: "#543A20" }}>
+                    <h3 style={{ fontFamily: "'Poppins', sans-serif", color: "#ffff" }}>
                       {addGroup.name.toUpperCase()}
                     </h3>
                     <div
@@ -488,18 +523,20 @@ export default function OrderScreen(props) {
                               display: "flex",
                               flexDirection: "row",
                               height: "auto",
-                              minHeight:"50px",
+                              minHeight:"75px",
                               width: "auto",
-                              minWidth:"120px",
+                              minWidth:"125px",
                               margin: "10px",
                               border: "1px solid #CE9760", // Updated primary color for border
                               justifyContent: "center",
                               alignItems: "center",
+                              fontWeight:"600",
                               padding:"4px 10px",
                               backgroundColor: selectedAddons.includes(itm._id)
                                 ? "#CE9760" // Updated primary color for selected state
                                 : "#6B4E2A", // Slightly lighter shade of background color
                               cursor: "pointer",
+                              
                             }}
                             onClick={() => handleAddonClick(itm)}
                           >
@@ -511,10 +548,10 @@ export default function OrderScreen(props) {
                                 alignItems: "center",
                               }}
                             >
-                              <span style={{ fontFamily: "'Poppins', sans-serif", color: "#FFFFFF" }}>
+                              <span style={{ fontFamily: "'Poppins", color: "#000000",fontWeight:"600" }}>
                                 <strong>{itm.name}</strong>
                               </span>
-                              <span style={{ marginTop: "5px", fontFamily: "'Poppins', sans-serif", color: "#FFFFFF" }}>
+                              <span style={{ marginTop: "5px", fontFamily: "'Poppins", color: "#000000" }}>
                                 {currSymbol[selectedCurrency]} {itm.price}
                               </span>
                             </CardContent>
@@ -532,12 +569,13 @@ export default function OrderScreen(props) {
               <Button
                 onClick={cancelOrRemoveFromOrder}
                 variant="outlined"
-                color="primary"
+                color="#00000"
                 size="large"
                 className={[styles.largeButton, styles.card]}
                 style={{
                   fontFamily: "'Poppins', sans-serif",
-                  color: "#543A20",
+                  
+                  color: "#39260B",
                   borderColor: "#CE9760", // Updated primary color for border
                 }}
               >
@@ -548,16 +586,16 @@ export default function OrderScreen(props) {
               <Button
                 onClick={addToOrderHandler}
                 variant="contained"
-                color="primary"
+                color="#CE9760"
                 size="large"
                 className={styles.largeButton}
                 style={{
                   fontFamily: "'Poppins', sans-serif",
                   backgroundColor: "#CE9760", // Updated primary color
-                  color: "#FFFFFF",
+                  color: "#39260B",
                 }}
               >
-                ADD
+                ADD TO CART
               </Button>
             </Box>
           </Box>

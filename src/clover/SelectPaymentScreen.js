@@ -37,75 +37,116 @@ const SplashScreen = ({ currentSplash, onFinish }) => {
   ];
 
   return (
-     <div className="page-wrapper">
-    <Box
-      style={{
-        height: '100vh',
-        width: '100vw',
-        backgroundImage: `url(${splashScreens[currentSplash].image})`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        position: 'relative',
-        overflow: 'hidden',
-      }}
-    >
-      {/* Overlay for better text visibility */}
+    <div className="page-wrapper">
       <Box
         style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          width: '100%',
-          height: '100%',
-          backgroundColor: 'rgba(0, 0, 0, 0.5)', // Dark overlay
-        }}
-      />
-      
-      {/* Coffee Logo */}
-      <img
-        src={CoffeeLogo}
-        alt="Coffee Logo"
-        style={{
-          width: '120px',
-          height: '120px',
-          marginBottom: '20px',
-          animation: 'fadeIn 1s ease-in-out',
-        }}
-      />
-
-      {/* Splash Text */}
-      <Typography
-        variant="h4"
-        style={{
-          color: '#fff',
-          fontFamily: "'Poppins', sans-serif",
-          fontWeight: 700,
-          textAlign: 'center',
-          zIndex: 1,
-          animation: 'slideUp 1s ease-in-out',
-          marginBottom: '10px',
+          height: '100vh',
+          width: '100vw',
+          backgroundImage: `url(${splashScreens[currentSplash].image})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+          position: 'relative',
+          overflow: 'hidden',
         }}
       >
-        {splashScreens[currentSplash].text}
-      </Typography>
+        {/* Overlay */}
+        <Box
+          style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            width: '100%',
+            height: '100%',
+            backgroundColor: 'rgba(0, 0, 0, 0.5)',
+          }}
+        />
 
-      {/* Loading Indicator */}
-      <CircularProgress
-        size={30}
-        style={{
-          color: '#d4a017',
-          marginTop: '20px',
-          zIndex: 1,
-        }}
-      />
-    </Box>
-    
-    
-</div>
+        {/* Skip Button */}
+        <button
+          onClick={onFinish}
+          style={{
+            position: 'absolute',
+            top: 50,
+            right: 20,
+            zIndex: 2,
+            background: 'transparent',
+            color: '#fff',
+            fontSize: '1em',
+            border: 'none',
+            cursor: 'pointer',
+            fontFamily: 'Poppins',
+          }}
+        >
+          Skip
+        </button>
+
+        {/* Logo */}
+        {currentSplash === 0 && (
+  <img
+    src={CoffeeLogo}
+    alt="Coffee Logo"
+    style={{
+      width: '312px',
+      height: '312px',
+      marginBottom: '20px',
+      animation: 'fadeIn 1s ease-in-out',
+      zIndex: 1,
+    }}
+  />
+)}
+
+        {/* Title */}
+    {currentSplash !== 0 && (
+  <Box
+    style={{
+      paddingBottom: '200px', // 👈 Adjust as needed (e.g., 60px, 80px)
+      zIndex: 1,
+    }}
+  >
+    <Typography
+      variant="h4"
+      style={{
+        color: '#fff',
+        fontFamily: 'Poppins',
+        fontWeight: 700,
+        textAlign: 'center',
+        animation: 'slideUp 1s ease-in-out',
+      }}
+    >
+      {splashScreens[currentSplash].text}
+    </Typography>
+
+    <Typography
+      variant="body1"
+      style={{
+        marginTop: '20px',
+        color: '#CE9760',
+        fontFamily: 'Poppins',
+        textAlign: 'center',
+        padding: '0 30px',
+        animation: 'fadeIn 1.2s ease-in-out',
+      }}
+    >
+      Lorem ipsum dolor sit amet consectetur. Vestibulum eget blandit mattis
+    </Typography>
+  </Box>
+)}
+
+        {/* Loading Indicator */}
+        <CircularProgress
+          size={30}
+          style={{
+            color: '#d4a017',
+            marginTop: '40px',
+            zIndex: 1,
+          }}
+        />
+      </Box>
+    </div>
   );
 };
 
@@ -196,15 +237,15 @@ export default function HomeScreen(props) {
     }
   };
 
-  useEffect(() => {
-    if (loggedUser && loggedUser.customer) {
-      setCustomerId(dispatch, loggedUser.customer.id);
-      selectHandler("Pick Up");
-    } else {
-      console.log('opening login');
-      setOpenSign(true);
-    }
-  }, []);
+useEffect(() => {
+  if (loggedUser && loggedUser.customer) {
+    setCustomerId(dispatch, loggedUser.customer.id);
+    props.history.push('/order?' + window.location.href.split('?')[1]);
+  } else {
+    setOpenSign(true);
+  }
+}, []);
+
 
   if (setting) {
     setTimeout(() => {
@@ -767,7 +808,7 @@ export default function HomeScreen(props) {
         </div>
       </Dialog>
 
-      <Box style={{ height: '100vh!important', backgroundColor: themeColor, padding: "20px" }}>
+      {/* <Box style={{ height: '100vh!important', backgroundColor: themeColor, padding: "20px" }}>
         <img
           src={CoffeeLogo}
           alt="Coffee Logo"
@@ -925,7 +966,8 @@ export default function HomeScreen(props) {
             </CardActionArea>
           </Card>
         </div>
-      </Box>
+      </Box> */
+      }
     </Box>
     
   );

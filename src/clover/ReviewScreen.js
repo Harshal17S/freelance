@@ -170,7 +170,12 @@ const placeFinalOrderToClover = async (finalOrder) => {
   };
 
   return (
-    <Box className={[styles.centerWithScroll]}>
+    <Box className={[styles.centerWithScroll]}
+    style={{
+      backgroundColor:"#543A20"
+    }}
+    
+    >
       <Box className={[styles.main, styles.center]} style={{ justifyContent: "start" }}>
         <Dialog
           onClose={closeHandler}
@@ -251,45 +256,141 @@ const placeFinalOrderToClover = async (finalOrder) => {
             variant="h5"
             component="h5"
             id="title1"
+            style={
+              {
+                color:"#FFFF",
+                fontFamily:"Poppins",
+                fontWeight:"800"
+              }
+            }
+ 
           >
-            Review your cart
+            Cart
           </Typography>
         </Box>
-        <Box style={{width:"100%"}} className={[styles.center]}>
+
+        <Box style={{ width: "100%", padding: "16px 0" }}>
+  <Typography
+    gutterBottom
+    className={styles.title3}
+    variant="h5"
+    component="h5"
+    id="title1"
+    style={{
+      color: "#FFFFFF",        // fixed typo: "#FFFF" → "#FFFFFF"
+      fontFamily: "Poppins",
+      fontSize: "22px",
+      fontWeight: "600",
+      paddingLeft: "16px",     // adds spacing from left edge
+      textAlign: "left"        // ensures left alignment
+    }}
+  >
+    MyOrders
+  </Typography>
+</Box>
+
+        <Box style={{width:"%" }} className={[styles.center]}>
           <Grid container>
             {orderItems.map((orderItem) => (
               <Grid item lg={12} md={12} sm={12} xs={12} key={orderItem.name}>
                 <Card
-                  className={[styles.card, styles.editCard]}
-                  onClick={() => productClickHandler(orderItem)}
-                >
-                  <CardActionArea>
-                    <CardContent>
-                      <Box className={[styles.row, styles.between, styles.itemsCenter]}>
-                        <div>
-                          <Typography
-                            gutterBottom
-                            variant="h6"
-                            className={styles.reviwText}
-                            component="p"
-                          >
-                            {orderItem.name}
-                          </Typography>
-                          {addonsItems[orderItem._id].map(mod=> {
-                            return <span>{mod.name+','}</span>
-                          })}
-                        </div>
-                        <div className='amount' style={{ position: "absolute", left: "50%" }}>
-                          <h3>{orderItem.quantity} x {currSymbol[selectedCurrency]}{orderItem.price}</h3>
-                        </div>
-                        <div>
-                          <Button variant="contained"  className={styles.editBtn} 
-                          >Edit</Button>
-                        </div>
-                      </Box>
-                    </CardContent>
-                  </CardActionArea>
-                </Card>
+  // className={[styles.card, styles.editCard]}
+  onClick={() => productClickHandler(orderItem)}
+  style={{
+    marginBottom: "20px",
+    backgroundColor: "#F5D9B0",
+    color:"black",
+    borderRadius: "18px",
+    display: "flex",
+    alignItems: "center",
+    padding: "16px 20px",
+    minHeight: "100px"  // <-- Increased height
+  }}
+>
+
+  {/* Image on the left */}
+ <img
+  src={`https://cloverstatic.com/menu-assets/items/${orderItem._id}.jpeg`}
+  alt={orderItem.name}
+  style={{
+    width: "80px",        // <- was 60px
+    height: "80px",       // <- was 60px
+    objectFit: "cover",
+    borderRadius: "14px",
+    marginRight: "16px"
+  }}
+  // onError={(e) => { e.target.src = "/images/fallback.jpg" }}
+/>
+
+
+  {/* Middle content */}
+ <Box style={{ flex: 1 }}>
+  <Typography
+    variant="h6"
+    style={{ fontWeight: 600, color: "#ffffff", fontSize: "18px" }}
+  >
+    {orderItem.name}
+  </Typography>
+  <Typography
+    variant="body2"
+    style={{ color: "#6B4E2A", fontSize: "14px", marginTop: "2px" }}
+  >
+    {addonsItems[orderItem._id]?.map(mod => mod.name).join(", ")}
+  </Typography>
+  <Typography
+    variant="body2"
+    style={{ marginTop: "6px", fontWeight: 500, color: "#000", fontSize: "16px" }}
+  >
+    {currSymbol[selectedCurrency]}{orderItem.price}
+  </Typography>
+</Box>
+
+  {/* Quantity selector */}
+ <Box style={{ display: "flex", alignItems: "center", marginLeft: "10px" }}>
+  <Button
+    onClick={(e) => {
+      e.stopPropagation();
+      setProduct(orderItem);
+      setQuantity(orderItem.quantity - 1);
+      addToOrder(dispatch, { ...orderItem, quantity: orderItem.quantity - 1 });
+    }}
+    disabled={orderItem.quantity === 1}
+    style={{
+      backgroundColor: "#CE9760",
+      color: "#000",
+      minWidth: "40px",      // was 32px
+      height: "40px",        // was 32px
+      borderRadius: "50%",
+      marginRight: "8px"
+    }}
+  >
+    <RemoveIcon fontSize="small" />
+  </Button>
+  <Typography style={{ width: "28px", textAlign: "center", fontSize: "16px" }}>
+    {orderItem.quantity}
+  </Typography>
+  <Button
+    onClick={(e) => {
+      e.stopPropagation();
+      setProduct(orderItem);
+      setQuantity(orderItem.quantity + 1);
+      addToOrder(dispatch, { ...orderItem, quantity: orderItem.quantity + 1 });
+    }}
+    style={{
+      backgroundColor: "#CE9760",
+      color: "#000",
+      minWidth: "40px",
+      height: "40px",
+      borderRadius: "50%",
+      marginLeft: "8px"
+    }}
+  >
+    <AddIcon fontSize="small" />
+  </Button>
+</Box>
+
+</Card>
+
               </Grid>
             ))}
           </Grid>
